@@ -20,7 +20,10 @@
 > * 然后调用第一级空间适配器 向内存池中补充内存
 
 
-## test.cpp 测试文件
+## process diagram
 
+
+
+![](https://raw.githubusercontent.com/bobbymly/uy_alloctor/master/pic/process_diagram.png )
 
 ![](https://raw.githubusercontent.com/bobbymly/uy_alloctor/master/pic/free_list.png )
