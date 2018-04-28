@@ -14,15 +14,15 @@ int main()
     cout<<test1<<endl;
 
 
-    //测试非正常使用，检验 free_list 是否如设计，程序崩溃则为正常
-    char* test2 = (char*)alloc.allocate(1);
-    strcpy(test2,"the blocks is continous in the memory, if we use the memory out of 19*64=1216 bytes,the program will crash");
-    cout<<test2<<endl;
-    for(int i=0;i<1500;++i)
-    {
-        test2[i]=i;
-        cout<<(int)test2[i];
-    }
+    // //测试非正常使用，检验 free_list 是否如设计，程序崩溃则为正常
+    // char* test2 = (char*)alloc.allocate(1);
+    // strcpy(test2,"the blocks is continous in the memory, if we use the memory out of 19*64=1216 bytes,the program will crash");
+    // cout<<test2<<endl;
+    // for(int i=0;i<1500;++i)
+    // {
+    //     test2[i]=i;
+    //     cout<<(int)test2[i];
+    // }
 
 
 
