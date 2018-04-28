@@ -1,6 +1,6 @@
 //第一级空间配置器
-
-
+//直接使用 malloc 从系统中申请内存空间
+ 
 #include <iostream>
 #include <cstdlib>
 #include <new>
@@ -10,6 +10,7 @@ template<int inst>
 class uy_alloctor_1
 {
 private:
+    //内存不足处理函数
     static void* oom_malloc(size_t size);
     static void* oom_realloc(void* p,size_t size);
     static void (*oom_handler)();
@@ -44,9 +45,7 @@ public:
 
     static void set_malloc_handler(void (*f)())
     {
-        //void (*old)() = oom_handler;
         oom_handler = f;
-        //return old;
     }
 };
 
@@ -59,6 +58,7 @@ void* uy_alloctor_1<inst>::oom_malloc(size_t size)
 {
     void (*my_handler)();
     void* result;
+    //不断调用处理函数 尝试释放内存以供使用
     while(1)
     {
         my_handler = oom_handler;
@@ -78,6 +78,7 @@ void* uy_alloctor_1<inst>:: oom_realloc(void *p,size_t size)
 {
     void (*my_handler)();
     void* result;
+    //不断调用处理函数 尝试释放内存以供使用
     while(1)
     {
         my_handler = oom_handler;
