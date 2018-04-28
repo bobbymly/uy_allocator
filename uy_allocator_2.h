@@ -15,7 +15,7 @@
 //然后调用第一级空间适配器 向内存池中补充内存
 
 
-#include "uy_alloctor_1.h"
+#include "uy_allocator_1.h"
 
 using namespace std;
 enum {__ALIGN = 8};
@@ -30,7 +30,7 @@ union obj
 };
 
 template <int inst>
-class uy_alloctor_2
+class uy_allocator_2
 {
 
 
@@ -69,28 +69,28 @@ private:
 };
 
 template <int inst>
-char* uy_alloctor_2<inst>::start_free = 0;
+char* uy_allocator_2<inst>::start_free = 0;
 
 template <int inst>
-char* uy_alloctor_2<inst>::end_free = 0;
+char* uy_allocator_2<inst>::end_free = 0;
 
 template <int inst>
-size_t uy_alloctor_2<inst>::heap_size = 0;
+size_t uy_allocator_2<inst>::heap_size = 0;
 
 template <int inst>
 
 //以链式结构管理内存
-obj* uy_alloctor_2<inst>::free_list[__NFREE_LIST] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+obj* uy_allocator_2<inst>::free_list[__NFREE_LIST] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 template <int inst>
-void* uy_alloctor_2<inst>::allocate(size_t n)
+void* uy_allocator_2<inst>::allocate(size_t n)
 {
     obj** my_free_list;
     obj* result;
     //大于128就使用一级配置器
     if(n > (size_t) __MAX_BYTES)
     {
-        return uy_alloctor_1<inst>::allocate(n);
+        return uy_allocator_1<inst>::allocate(n);
     }
     //否则使用二级配置器
     my_free_list = free_list + free_list_index(n);
@@ -106,13 +106,13 @@ void* uy_alloctor_2<inst>::allocate(size_t n)
 }
 
 template <int inst>
-void uy_alloctor_2<inst>::deallocate(void* p,size_t size)
+void uy_allocator_2<inst>::deallocate(void* p,size_t size)
 {
     obj* q=(obj*) p;
     obj** my_free_list;
     if(size > __MAX_BYTES)
     {
-        uy_alloctor_1<inst>::deallocate(p,size);
+        uy_allocator_1<inst>::deallocate(p,size);
         return ;
     }
     my_free_list = free_list_index(size);
@@ -122,7 +122,7 @@ void uy_alloctor_2<inst>::deallocate(void* p,size_t size)
 }
 
 template <int inst>
-void* uy_alloctor_2<inst>::refill(size_t n)
+void* uy_allocator_2<inst>::refill(size_t n)
 {
     int nobjs = 20;
     char* chunk = chunk_alloc(n,nobjs);
@@ -156,7 +156,7 @@ void* uy_alloctor_2<inst>::refill(size_t n)
 
 //内存池管理
 template <int inst>
-char* uy_alloctor_2<inst>::chunk_alloc(size_t size,int& nobjs)
+char* uy_allocator_2<inst>::chunk_alloc(size_t size,int& nobjs)
 {
     char* result;
     size_t total_bytes = size * nobjs;
@@ -204,7 +204,7 @@ char* uy_alloctor_2<inst>::chunk_alloc(size_t size,int& nobjs)
                 }
             }
             end_free = 0;
-            start_free = (char*)uy_alloctor_1<inst>::allocate(bytes_to_get);
+            start_free = (char*)uy_allocator_1<inst>::allocate(bytes_to_get);
         }
         heap_size += bytes_to_get;
         end_free = start_free + bytes_to_get;

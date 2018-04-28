@@ -7,7 +7,7 @@
 using namespace std;
 
 template<int inst>
-class uy_alloctor_1
+class uy_allocator_1
 {
 private:
     //内存不足处理函数
@@ -51,10 +51,10 @@ public:
 
 
 template<int inst>
-void (* uy_alloctor_1<inst>::oom_handler )() = 0;
+void (* uy_allocator_1<inst>::oom_handler )() = 0;
 
 template<int inst>
-void* uy_alloctor_1<inst>::oom_malloc(size_t size)
+void* uy_allocator_1<inst>::oom_malloc(size_t size)
 {
     void (*my_handler)();
     void* result;
@@ -74,7 +74,7 @@ void* uy_alloctor_1<inst>::oom_malloc(size_t size)
 }
 
 template<int inst>
-void* uy_alloctor_1<inst>:: oom_realloc(void *p,size_t size)
+void* uy_allocator_1<inst>:: oom_realloc(void *p,size_t size)
 {
     void (*my_handler)();
     void* result;
@@ -93,4 +93,4 @@ void* uy_alloctor_1<inst>:: oom_realloc(void *p,size_t size)
     }
 }
 
-typedef uy_alloctor_1<0> malloc_alloc;
+typedef uy_allocator_1<0> malloc_alloc;

@@ -1,12 +1,12 @@
 #include <iostream>
-#include "uy_alloctor_2.h"
+#include "uy_allocator_2.h"
 #include <string.h>
 using namespace std;
 
 
 int main()
 {
-    uy_alloctor_2<0> alloc;
+    uy_allocator_2<0> alloc;
 
     //测试正常使用
     char* test1 = (char*)alloc.allocate(64);
