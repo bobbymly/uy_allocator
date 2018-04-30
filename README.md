@@ -1,9 +1,9 @@
-# uy_alloctor
+# uy_allocator
 
-## uy_alloctor_1.h  第一级空间配置器
+## uy_allocator_1.h  第一级空间配置器
 >直接使用 malloc 从系统中申请内存空间
 
-## uy_alloctor_2.h  第二级空间配置器
+## uy_allocator_2.h  第二级空间配置器
 >避免太多的小额区块造成内存的碎片
 
 > * 空间管理策略是
