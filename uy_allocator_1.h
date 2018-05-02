@@ -28,7 +28,7 @@ public:
         return p;
     }
 
-    static void deallocate(void* p)
+    static void deallocate(void* p,size_t n)
     {
         free(p);
     }
