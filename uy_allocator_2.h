@@ -115,7 +115,7 @@ void uy_allocator_2<inst>::deallocate(void* p,size_t size)
         uy_allocator_1<inst>::deallocate(p,size);
         return ;
     }
-    my_free_list = free_list_index(size);
+    my_free_list =free_list + free_list_index(size);
     q->free_list_link = *my_free_list;
     *my_free_list = q; 
 
