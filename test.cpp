@@ -10,8 +10,22 @@ int main()
 
     //测试正常使用
     char* test1 = (char*)alloc.allocate(64);
+
+
+
+
     strcpy(test1,"apply 64 bytes, the alloctor will add 19 blocks of 64 bytes to the free_list");
     cout<<test1<<endl;
+
+    for(int i=0;i<10;++i)
+    {
+        char* test = (char*)alloc.allocate(8);
+        strcpy(test,"1234567");
+        cout<<test<<endl;
+        alloc.deallocate(test,sizeof(char));
+
+    }
+    
 
 
     // //测试非正常使用，检验 free_list 是否如设计，程序崩溃则为正常

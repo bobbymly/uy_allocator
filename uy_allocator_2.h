@@ -43,7 +43,7 @@ private:
     //将需求的内存块大小提升为 8 的整数倍
     static size_t round_up(size_t bytes)
     {
-        return (bytes+__ALIGN-1) & (~__ALIGN-1);
+        return (bytes+__ALIGN-1) & ~(__ALIGN-1);
     }
 
     
@@ -130,7 +130,7 @@ void* uy_allocator_2<inst>::refill(size_t n)
     obj* result,*next_obj,*current_obj;
     int i;
 
-    if(nobjs = 1)
+    if(nobjs == 1)
     {
         return chunk;
     }
@@ -173,6 +173,7 @@ char* uy_allocator_2<inst>::chunk_alloc(size_t size,int& nobjs)
         total_bytes = nobjs * size;
         result = start_free;
         start_free += total_bytes;
+        return result;
     }else{      //剩余内存连一个区块都无法满足
                 
         size_t bytes_to_get = 2 * total_bytes + round_up(heap_size >>4);
