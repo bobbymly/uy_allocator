@@ -43,11 +43,7 @@ private:
     //将需求的内存块大小提升为 8 的整数倍
     static size_t round_up(size_t bytes)
     {
-<<<<<<< HEAD
         return ((bytes+__ALIGN-1) & ~(__ALIGN-1));
-=======
-        return (bytes+__ALIGN-1) & ~(__ALIGN-1);
->>>>>>> 7a2cd602d58e3498d5f34dff9ebced227325f176
     }
 
     
